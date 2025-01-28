@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bilbioteca</title>
+</head>
+<body>
+    <h1>Lista de libros</h1>
+    <form action="{{ url_for('get_book_by_id') }}" method="post">
+        <label for="id">Buscar por ID:</label>
+        <input id="id" name="id" required>
+        <input type="submit" value="Buscar">
+    </form>
+    
+    <ul>
+    {% for book in books %}
+        <li>
+            ID: {{ book.id }}, Título: {{ book.titulo }} Autor: {{ book.autor }} Genero: {{ book.genero }} Fecha publicación : {{ book.fecha_publicacion }}
+            <a href="{{ url_for('edit_book', book_id = book.id) }}" >Editar</a>
+            <form action="{{ url_for('delete_book', book_id=book.id) }}" method="post">
+                <button type="submit">Eliminar</button>
+            </form>
+            <br>
+        </li>
+    {% endfor %}
+    <form action="{{ url_for('add_book') }}">
+        <button type="submit">Agregar libro</button>
+    </form>
+</ul>
+</body>
+</html>
